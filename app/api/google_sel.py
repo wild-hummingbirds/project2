@@ -40,28 +40,16 @@ def google_nav(query='data science'):
         driver.set_window_size(1440, 712)
         driver.get(url)
 
-        while len(google_data) < 180:
-            soup = BeautifulSoup(driver.page_source, 'html.parser')
-            data_scr = google_scrape_page(soup)
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        data_scr = google_scrape_page(soup)
 
-            if not len(data_scr):
-                break
+        google_data.extend(data_scr)
 
-            google_data.extend(data_scr)
-
-            next_page_element = driver.find_elements(By.ID, 'pnnext')
-            if not next_page_element:
-                break
-            next_page_element[0].click()
-
-            WebDriverWait(driver, 10).until(
-                lambda driver: driver.execute_script('return document.readyState') == 'complete'
-            )
     return google_data
 
 
 if __name__ == '__main__':
-    google_data = google_nav(query='Grand Canyon')
+    google_data = google_nav(query='data science')
     for data in google_data:
         print(data)
         print('----------------------------')
