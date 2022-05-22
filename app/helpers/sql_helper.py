@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import mysql.connector
 from mysql.connector import Error
+from stop_words import get_stop_words
 import os
 from dotenv import load_dotenv
 import string
@@ -11,6 +12,8 @@ load_dotenv()
 DB = os.environ['DB']
 PWD = os.environ['DB_PASSWORD']
 USER = os.environ['USERNAME']
+
+STOP_WORDS = set(get_stop_words('en'))
 
 def pre_processing_data(input_data,squery):
     # processing data before inserting to improve performance
@@ -90,10 +93,12 @@ def wordFreqCount(full_text, search_term):
         return None
     else:
         terms = search_term.split()
+        terms_not_stop_words = [word for word in terms if word not in STOP_WORDS]
+
         freq = 0
 
         ft_lower = full_text.lower()
 
-        for term in terms:
-            freq += ft_lower.count(term.lower())
+        for term in terms_not_stop_words:
+            freq += ft_lower.count(term.lower())        
         return freq
