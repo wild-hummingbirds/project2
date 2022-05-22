@@ -6,21 +6,21 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def all_engines_data(query):
+def all_engines_data(query, max_results=28):
     all_data = []
 
     print('Searching DuckDuckGo.....')
-    duck_data = duckduckgo_search(query)
+    duck_data = duckduckgo_search(query, max_results)
     print('Total DuckDuckGo results: ', len(duck_data))
     print('\n\n')
 
     print('Searching Bing.....')
-    bing_data = bing_search_api(query)
+    bing_data = bing_search_api(query, max_results)
     print('Total Bing results: ', len(bing_data))
     print('\n')
 
     print('Searching Google.....')
-    google_data = google_nav(query)
+    google_data = google_nav(query, max_results)
     print('Total Google results: ', len(google_data))
     print('\n')
 
