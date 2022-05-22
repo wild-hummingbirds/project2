@@ -11,7 +11,7 @@ db = 'WildHummingbirds'
 pwd = os.environ['DB_PASSWORD']
 
 insert_search_query = "INSERT INTO WildHummingbirds.search_query VALUES (%s, %s);"
-insert_search_meta = "INSERT INTO WildHummingbirds.search_meta VALUES (%s, %s, %s, %s, %s, %s);"
+insert_search_meta = "INSERT INTO WildHummingbirds.urls VALUES (%s, %s, %s, %s, %s, %s);"
 
 search_query = input('Enter a search query: ')
 
@@ -35,7 +35,7 @@ else:
 
             for row in input_data:
                 id_val2 = id_generator()
-                cursor.execute(insert_search_meta, (row[0], row[2], row[1], row[3], id_val2,id_val1))
+                cursor.execute(insert_search_meta, (row[0], row[1], row[2], row[3], id_val2,id_val1))
             connection.commit()
 
 
