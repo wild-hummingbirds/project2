@@ -6,11 +6,11 @@ def getWebpageText(url):
     webpage = requests.get(url)
 
     if webpage.status_code is 200:
-    soup = BeautifulSoup(webpage.text, 'html.parser')
-    webpage_text = soup.get_text(strip=True)
-    return webpage_text
+      soup = BeautifulSoup(webpage.text, 'html.parser')
+      webpage_text = soup.get_text(strip=True)
+      return webpage_text
     else:
-    print(f'Cant access {url}')
+      print(f'Cant access {url}')
     return None
 
     
