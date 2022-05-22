@@ -20,12 +20,18 @@
     .link{
         text-decoration: none;
     }
+    #loading {
+    width: 35px;
+    height: 35px;
+    display: none;
+    cursor: wait;
+    }
 
 
 </style>
 <h1 class="title">Search</h1>
 <section class="section">
-    <form action="/search" method="post" novalidate>
+    <form action="/search" method="post" novalidate >
         {{ form.hidden_tag() }}
         <p>
         <div class="field">
@@ -34,9 +40,17 @@
         </div>
         </p>
 
-        <p>{{ form.submit(class_="button is-link") }}</p>
+        <p>{{ form.submit(class_="button is-link bt-loader") }}</p>
+    </div>
+
+</div>
     </form>
+
+
+  <span class="sr-only"></span>
 </section>
+
+
     {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
@@ -46,6 +60,7 @@
 
   {% endif %}
 {% endwith %}
+
     {% if valid_form %}
     <div class="container results">
         <h2>Query : {{ query }}</h2>
@@ -65,8 +80,6 @@
               <a href="{{ res[0] }}" target="_blank" class="link-secondary text-decoration-none">{{ res[0] }}</a>
           </td>
           <td>{{ res[2] }}</td>
-
-
     </tr>
                    {% endfor %}
      {% endif %}
@@ -80,6 +93,19 @@
      </div>
     </div>
      {% endif %}
+    <script>
+
+    $(document).ready(function(){
+        {#$("#hide").click(function(){#}
+        {#    $("bt-hide").hide();});#}
+        {#$("#show").click(function(){#}
+        {#    $("p").show();});#}
+        console.log("hello")
+    });
+
+
+    </script>
+
 {% endblock %}
 
 
