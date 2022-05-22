@@ -11,7 +11,7 @@
     .title {
         text-align: center;
     }
-    .error{
+    .alert{
         text-align: center;
     }
 
@@ -32,11 +32,11 @@
 </section>
     {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
-    <ul class=flashes>
     {% for category, message in messages %}
-      <h1 class="{{ category }}">{{ message }}</h1>
+      <h1 class="alert alert-danger alert-dismissable">{{ message }}</h1>
     {% endfor %}
-    </ul>
+
+
   {% endif %}
 {% endwith %}
     <h2>Query : {{ query }}</h2>
