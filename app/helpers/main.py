@@ -1,5 +1,5 @@
 from app.api.all_engine_search import all_engines_data
-from app.helpers.driver_script import check_search_query_exist, id_generator
+from app.helpers.sql_helper import *
 from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import Error
@@ -7,35 +7,46 @@ import os
 load_dotenv()
 
 
-db = 'WildHummingbirds'
-pwd = os.environ['DB_PASSWORD']
+DB = os.environ['DB']
+PWD = os.environ['DB_PASSWORD']
+USER = os.environ['USER']
 
 insert_search_query = "INSERT INTO WildHummingbirds.search_query VALUES (%s, %s);"
-insert_search_meta = "INSERT INTO WildHummingbirds.urls VALUES (%s, %s, %s, %s, %s, %s);"
+insert_search_urls = "INSERT INTO WildHummingbirds.urls VALUES (%s, %s, %s, %s, %s, %s);"
+insert_content = "INSERT INTO WildHummingbirds.content VALUES (%s, %s, %s, %s, %s)"
+# check_url = 'SELECT url '
 
 search_query = input('Enter a search query: ')
 
-input_data = all_engines_data(search_query)
-if check_search_query_exist(search_query,db,pwd):
+if check_search_query_exist(search_query):
     print("Search query result already exsit in Database")
 else:
-    #inserting data into db
-    #need to include validation for data already exsit
-    #need to include update script if a query is run multiple time
     try:
-        connection = mysql.connector.connect(host='127.0.0.1',database=db,
-                                                user='root',password=pwd)
+        connection = mysql.connector.connect(host='127.0.0.1',database=DB,
+                                                user=USER,password=PWD)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
             cursor = connection.cursor()
 
-            id_val1 = id_generator()
-            cursor.execute(insert_search_query,(id_val1,search_query))
+            input_data = all_engines_data(search_query)
+
+            search_id = id_generator()
+            cursor.execute(insert_search_query,(search_id,search_query))
 
             for row in input_data:
-                id_val2 = id_generator()
-                cursor.execute(insert_search_meta, (row[0], row[1], row[2], row[3], id_val2,id_val1))
+                engine_name, title, url, snippet = row[:4]
+                url_id = id_generator()
+                cursor.execute(insert_search_urls, (engine_name, title, url, snippet, url_id, search_id))
+
+                try:
+                    page_content = getWebpageText(url)
+                except:
+                    page_content = None
+
+                freq = wordFreqCount(full_text=page_content, search_term=search_query)
+                cursor.execute(insert_content, (url_id, url, page_content, 'Webpage', freq))
+
             connection.commit()
 
 
