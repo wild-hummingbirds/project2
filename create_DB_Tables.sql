@@ -24,7 +24,7 @@ FOREIGN KEY (search_id) REFERENCES search_query(search_id)
 CREATE TABLE content (
 url_id varchar(16) NOT NULL COMMENT 'url_id',
 url varchar(500) NOT NULL COMMENT 'full URL',
-page_content mediumtext NOT NULL COMMENT 'page content', 
+page_content mediumtext DEFAULT NULL COMMENT 'page content',  
 content_type varchar (50) Default 'bf' comment 'by default we will inset bf for beautiful soup', 
 freq int DEFAULT NULL,
 PRIMARY KEY (url),
