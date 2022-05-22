@@ -14,8 +14,10 @@
     .alert{
         text-align: center;
     }
-    .center{
-        text-align: center
+    .center{display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
     }
     .link{
         text-decoration: none;
@@ -29,8 +31,10 @@
 
 
 </style>
-<h1 class="title">Search</h1>
+
 <section class="section">
+    <img class="" src="../static/bird2.png" alt="Bird" height="200">
+    <h1 class="title">HummingBird</h1>
     <form action="/search" method="post" novalidate >
         {{ form.hidden_tag() }}
         <p>
