@@ -45,7 +45,7 @@ def google_nav(query='data science', max_results=20):
 
         google_data.extend(data_scr)
 
-    if len(google_data) > 20:
+    if max_results > 20:
         max_results=20
 
     return google_data[:max_results]

@@ -1,17 +1,25 @@
-<!doctype html>
-<html>
-  <head>
-    <title> My Webpage</title>
-  </head>
-  <body>
-      <h1>Welcome</h1>
-      <div class="container">
-        {% block content %}{% endblock %}
-    </div>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>A</h1>
+<h1 class="title">Search</h1>
+<section class="section">
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+        <div class="field">
+            {{ form.searchbox.label(class_="label") }}
+            {{ form.searchbox(size=32, class_="input is-link") }}
+        </div>
+        </p>
+
+        <p>{{ form.submit(class_="button is-link") }}</p>
+    </form>
+</section>
+    <h2>Query : {{ query }}</h2>
+    {% if data %}
+        <p>{{ data }}</p>
+    {% endif %}
+{% endblock %}
 
 
-    {% for ele in data %}
-        <p>{{ele}}</p>
-    {% endfor %}
-  </body>
-</html>

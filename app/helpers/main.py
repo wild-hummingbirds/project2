@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import Error
 import os
-load_dotenv()
 
+load_dotenv()
 
 DB = os.environ['DB']
 PWD = os.environ['DB_PASSWORD']
@@ -17,14 +17,13 @@ insert_search_urls = "INSERT INTO WildHummingbirds.urls VALUES (%s, %s, %s, %s, 
 insert_content = "INSERT INTO WildHummingbirds.content VALUES (%s, %s, %s, %s, %s)"
 check_url_exists = "SELECT * FROM WildHummingbirds.content where url = (%s)"
 
-search_query = input('Enter a search query: ')
 
-if check_search_query_exist(search_query):
-    print("Search query result already exsit in Database")
-else:
+# search_query = input('Enter a search query: ')
+
+def data_dump(search_query):
     try:
-        connection = mysql.connector.connect(host='127.0.0.1',database=DB,
-                                                user=USER,password=PWD)
+        connection = mysql.connector.connect(host='127.0.0.1', database=DB,
+                                             user=USER, password=PWD)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -33,7 +32,7 @@ else:
             input_data = all_engines_data(search_query, max_results=5)
 
             search_id = id_generator()
-            cursor.execute(insert_search_query,(search_id,search_query))
+            cursor.execute(insert_search_query, (search_id, search_query))
 
             for row in input_data:
                 engine_name, title, url, snippet = row[:4]
@@ -62,7 +61,3 @@ else:
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
-
-
-
-

@@ -53,13 +53,14 @@ def check_search_query_exist(squery):
 def get_data(squery):
     ''' this function will check if a search text will processed in the past, for project one we will ignore any
     search text that already exsit in DB'''
+
     myresult = ''  # in the event query fail we will return 0
     try:
         connection = mysql.connector.connect(host='127.0.0.1', database=DB,
                                              user=USER, password=PWD)
         if connection.is_connected():
             cursor = connection.cursor()
-            q = "SELECT * FROM WildHummingbirds.content where search_query = '{}';".format(squery)
+            q = "select urls.url, urls.url_id, `content`.freq from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' ORDER BY `content`.freq DESC LIMIT 10;".format(squery)
             cursor.execute(q)
             myresult = cursor.fetchall()
 
