@@ -16,34 +16,50 @@ def root():
     # for data in all_data:
     #     res.append(data)
     all = [1,2,3,4]
+    # print(form.validate_on_submit())
+    # if form.validate_on_submit():
+    #     q = form.searchbox.data
+    #     q_exist = check_search_query_exist(q)
+    #     if q_exist:
+    #         res = get_data(q)
+    #         return render_template('index.html', data=res, form=form, query=q)
+    #     else:
+    #         print("Searching....")
+    #         data_dump(q)
+    #         res = get_data(q)
+    #         return render_template('index.html', data=res, form=form, query=q)
+    # else:
+    return render_template('index.html',form=form)
+
+
+@index_bp.route('/search', methods=['GET', 'POST'])
+def search():
+    all = [1, 2, 3, 4]
+    res = "You searched for nothing"
+    form = SearchForm()
     q = form.searchbox.data
-    q_exist = check_search_query_exist(q)
-    if q_exist:
-        #print(f"{q} Exist in DB ")
-        res = get_data(q)
-        return render_template('index.html', data=res, form=form, query=q)
-    else:
-        print("Searching....")
-        data_dump(q)
-        res = get_data(q)
-        return render_template('index.html', data=res, form=form, query=q)
+    if form.validate_on_submit():
+        q_exist = check_search_query_exist(q)
+        if q_exist:
+            res = get_data(q)
+            return render_template('index.html', data=res, form=form, query=q)
+        else:
+            print("Searching....")
+            data_dump(q)
+            res = get_data(q)
+
+    return render_template('index.html', data=res, form=form, query=q)
+    # query = request.args.get('query')
+    # if check_search_query_exist(query):
+    #
+    #     res = get_data(query)
+    #     return render_template('search.html', title='Search', form=form, search_results=res,
+    #                            query=form.searchbox.data)
+    # else:
+    #     pass
 
 
 
-# @index.route('/search', methods=['GET', 'POST'])
-# def search():
-#     form = SearchForm()
-#     query = request.args.get('query')
-#     if check_search_query_exist(query):
-#
-#         res = get_data(query)
-#         return render_template('search.html', title='Search', form=form, search_results=res,
-#                                query=form.searchbox.data)
-#     else:
-#         pass
-#
-#
-#
 
 
 
