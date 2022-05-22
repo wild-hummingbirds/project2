@@ -27,30 +27,18 @@
         <table class="table is-striped is-fullwidth">
             <thead>
             <tr>
-                <th><abbr title="Title">Title</abbr></th>
-                <th><abbr title="Genres">Genres</abbr></th>
-                <th><abbr title="Year">Year</abbr></th>
-                <th><abbr title="Cast">Cast</abbr></th>
-                <th><abbr title="Score">Score</abbr></th>
+                <th><abbr title="URL">URL</abbr></th>
+                <th><abbr title="Frequency">Frequency</abbr></th>
             </tr>
             </thead>
             {% for document in search_results.results %}
 
             <tr>
                 <td>
-                    {{ document.title.raw }}
+                    {{ document.url.raw }}
                 </td>
                 <td>
-                    {{ document.genres.raw }}
-                </td>
-                <td>
-                    {{ document.year.raw }}
-                </td>
-                <td>
-                    {{ document.cast.raw }}
-                </td>
-                <td>
-                    {{ document._meta.score }}
+                    {{ document.frequency.raw }}
                 </td>
             </tr>
             {% endfor %}
