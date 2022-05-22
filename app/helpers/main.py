@@ -1,5 +1,6 @@
 from app.api.all_engine_search import all_engines_data
 from app.helpers.sql_helper import *
+import os
 from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import Error
@@ -9,12 +10,12 @@ load_dotenv()
 
 DB = os.environ['DB']
 PWD = os.environ['DB_PASSWORD']
-USER = os.environ['USER']
+USER = os.environ['USERNAME']
 
 insert_search_query = "INSERT INTO WildHummingbirds.search_query VALUES (%s, %s);"
 insert_search_urls = "INSERT INTO WildHummingbirds.urls VALUES (%s, %s, %s, %s, %s, %s);"
 insert_content = "INSERT INTO WildHummingbirds.content VALUES (%s, %s, %s, %s, %s)"
-# check_url = 'SELECT url '
+check_url_exists = "SELECT * FROM WildHummingbirds.content where url = (%s)"
 
 search_query = input('Enter a search query: ')
 
@@ -44,8 +45,12 @@ else:
                 except:
                     page_content = None
 
-                freq = wordFreqCount(full_text=page_content, search_term=search_query)
-                cursor.execute(insert_content, (url_id, url, page_content, 'Webpage', freq))
+                cursor.execute(check_url_exists, (url,))
+                url_exists = len(cursor.fetchall())
+
+                if not url_exists:
+                    freq = wordFreqCount(full_text=page_content, search_term=search_query)
+                    cursor.execute(insert_content, (url_id, url, page_content, 'Webpage', freq))
 
             connection.commit()
 

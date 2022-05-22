@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import mysql.connector
 from mysql.connector import Error
+import os
 from dotenv import load_dotenv
 import string
 import random
@@ -9,7 +10,7 @@ import random
 load_dotenv()
 DB = os.environ['DB']
 PWD = os.environ['DB_PASSWORD']
-USER = os.environ['USER']
+USER = os.environ['USERNAME']
 
 def pre_processing_data(input_data,squery):
     # processing data before inserting to improve performance
