@@ -17,6 +17,7 @@ pandas = "*"
 duckduckgo-search = "*"
 wtforms = "*"
 flask-wtf = "*"
+stop-words = "*"
 
 [dev-packages]
 
