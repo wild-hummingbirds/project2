@@ -1,4 +1,3 @@
-import logging
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -25,14 +24,14 @@ def google_query(query='Avengers Endgame', number_of_pages=1):
     return f'https://www.google.com/search?q={query}&num=20'
 
 
-def google_nav(query='data science'):
+def google_nav(query='data science', max_results=20):
     url = google_query(query)
 
     # Configuration options for Selenium WebDriver
     options = Options()  
     options.add_argument("--headless")
 
-    service=Service(ChromeDriverManager(log_level=logging.ERROR).install())
+    service=Service(ChromeDriverManager().install())
 
     google_data = []
     # Selenium WebDriver execution 
@@ -45,7 +44,10 @@ def google_nav(query='data science'):
 
         google_data.extend(data_scr)
 
-    return google_data
+    if max_results > 20:
+        max_results=20
+
+    return google_data[:max_results]
 
 
 if __name__ == '__main__':

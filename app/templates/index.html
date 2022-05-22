@@ -1,17 +1,85 @@
-<!doctype html>
-<html>
-  <head>
-    <title> My Webpage</title>
-  </head>
-  <body>
-      <h1>Welcome</h1>
-      <div class="container">
-        {% block content %}{% endblock %}
-    </div>
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+    .section {
+        padding: 10px;
+        margin: 5px;
+        background-color: #f3f3f3;
+         text-align: center;
+    }
+    .title {
+        text-align: center;
+    }
+    .alert{
+        text-align: center;
+    }
+    .center{
+        text-align: center
+    }
+    .link{
+        text-decoration: none;
+    }
 
 
-    {% for ele in data %}
-        <p>{{ele}}</p>
+</style>
+<h1 class="title">Search</h1>
+<section class="section">
+    <form action="/search" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+        <div class="field">
+            {{ form.searchbox.label(class_="label") }}
+            {{ form.searchbox(size=32, class_="input is-link") }}
+        </div>
+        </p>
+
+        <p>{{ form.submit(class_="button is-link") }}</p>
+    </form>
+</section>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <h1 class="alert alert-danger alert-dismissable">{{ message }}</h1>
     {% endfor %}
-  </body>
-</html>
+
+
+  {% endif %}
+{% endwith %}
+    {% if valid_form %}
+    <div class="container results">
+        <h2>Query : {{ query }}</h2>
+        <table class="table">
+          <thead>
+    <tr>
+      <th scope="col">URL</th>
+      <th scope="col">Freq</th>
+    </tr>
+  </thead>
+            <tbody>
+            {% if data %}
+         {% for res in data %}
+    <tr>
+
+          <td>
+              <a href="{{ res[0] }}" target="_blank" class="link-secondary text-decoration-none">{{ res[0] }}</a>
+          </td>
+          <td>{{ res[2] }}</td>
+
+
+    </tr>
+                   {% endfor %}
+     {% endif %}
+             </tbody>
+
+        </table>
+
+
+
+
+     </div>
+    </div>
+     {% endif %}
+{% endblock %}
+
+
