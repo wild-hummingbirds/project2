@@ -1,4 +1,4 @@
-from flask import Blueprint as Blueprint, render_template,request
+from flask import Blueprint as Blueprint, render_template,request,flash
 from app.api.search_form import SearchForm
 from app.api.all_engine_search import all_engines_data
 from app.helpers.main import data_dump
@@ -47,7 +47,7 @@ def search():
             print("Searching....")
             data_dump(q)
             res = get_data(q)
-
+    flash('No Search Query Provided', 'error')
     return render_template('index.html', data=res, form=form, query=q)
     # query = request.args.get('query')
     # if check_search_query_exist(query):

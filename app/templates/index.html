@@ -11,6 +11,9 @@
     .title {
         text-align: center;
     }
+    .error{
+        text-align: center;
+    }
 
 </style>
 <h1 class="title">Search</h1>
@@ -27,6 +30,15 @@
         <p>{{ form.submit(class_="button is-link") }}</p>
     </form>
 </section>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <h1 class="{{ category }}">{{ message }}</h1>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
     <h2>Query : {{ query }}</h2>
     {% if data %}
         <p>{{ data }}</p>
