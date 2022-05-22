@@ -4,7 +4,7 @@ import time
 import requests
 import json
 
-def bing_search_api(query='data science'):
+def bing_search_api(query='data science', max_results=30):
   '''
   1. Create a free Azure subscription
   2. Login to https://portal.azure.com/#home 
@@ -14,38 +14,26 @@ def bing_search_api(query='data science'):
 
   '''
   subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-  results_needed = 650
-  n_results = 50
-  n_steps = int(results_needed/n_results) #determine the number of passes we'd need to take
-
-  offset = 0 
 
   results_raw = [] # list to store raw results
   headers = { 'Ocp-Apim-Subscription-Key': subscription_key}
 
-  ## send n_steps requests to the API to get the desired number of results
-  for i in range(n_steps):
+  params = { 'q': query, 'mkt': 'en-US' ,'count': max_results, 'offset':0}
+  r = requests.get('https://api.bing.microsoft.com/v7.0/search', headers=headers, params=params)
+  
+  #check if the key exists
+  if 'webPages' in r.json():
+    search_results = r.json()['webPages']['value']
 
-    params = { 'q': query, 'mkt': 'en-US' ,'count': n_results, 'offset':offset}
-    r = requests.get('https://api.bing.microsoft.com/v7.0/search', headers=headers, params=params)
+    # getting the desired fields and appending to the list
+    for res in search_results:
+      # if the result set is not already in results_raw >> append
+      if [res['name'], res['url'], res['snippet']] not in results_raw:
+        results_raw.append([res['name'], res['url'], res['snippet']])
     
-    #check if the key exists
-    if 'webPages' in r.json():
-      search_results = r.json()['webPages']['value']
-
-      # getting the desired fields and appending to the list
-      for res in search_results:
-        # if the result set is not already in results_raw >> append
-        if [res['name'], res['url'], res['snippet']] not in results_raw:
-          results_raw.append([res['name'], res['url'], res['snippet']])
+    # incrementing offset by n_results to get to the next page
+    # https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search/page-results
       
-      # incrementing offset by n_results to get to the next page
-      # https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search/page-results
-      offset+=n_results 
-      
-      time.sleep(5) # pausing for 5s (just in case)
-    else:
-      break
 
   results_trimmed = [['Bing']+[r for r in res] for res in results_raw[:500]]
 
@@ -57,7 +45,7 @@ def bing_search_api(query='data science'):
 
 if __name__ =='__main__':
     load_dotenv()
-    bing_data = bing_search_api(input('Enter Bing Search Query: '))
+    bing_data = bing_search_api()
     # for data in bing_data:
     #     print(data)
     print(bing_data[0])
