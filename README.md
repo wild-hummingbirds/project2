@@ -13,3 +13,5 @@
     - cd app
     - flask run --reload
 
+# Adding DB:
+    - Open MySQL and run the create_DB_Tables.sql command to clone Wild Hummingbird DB 
