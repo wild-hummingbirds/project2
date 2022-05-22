@@ -1,4 +1,3 @@
-import logging
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -32,7 +31,7 @@ def google_nav(query='data science', max_results=20):
     options = Options()  
     options.add_argument("--headless")
 
-    service=Service(ChromeDriverManager(log_level=logging.ERROR).install())
+    service=Service(ChromeDriverManager().install())
 
     google_data = []
     # Selenium WebDriver execution 
