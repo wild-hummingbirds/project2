@@ -20,7 +20,7 @@ check_url_exists = "SELECT * FROM WildHummingbirds.content where url = (%s)"
 
 # search_query = input('Enter a search query: ')
 
-def data_dump(search_query):
+def data_dump(search_query, max_results=5):
     try:
         connection = mysql.connector.connect(host='127.0.0.1', database=DB,
                                              user=USER, password=PWD)
@@ -61,3 +61,8 @@ def data_dump(search_query):
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
+
+if __name__ == '__main__':
+    query = input('Enter search query: ')
+    max_searches = input('Enter number of searches per engine: ')
+    data_dump(query, max_searches)
