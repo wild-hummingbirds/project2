@@ -38,15 +38,17 @@ def search():
     res = "You searched for nothing"
     form = SearchForm()
     q = form.searchbox.data.lower()
+    num_res = int(form.result.data)
+    print(num_res)
     if form.validate_on_submit():
         q_exist = check_search_query_exist(q)
         if q_exist:
-            res = get_data(q)
+            res = get_data(q, num_res)
             return render_template('index.html', data=res, form=form, query=q, valid_form=form.validate_on_submit())
         else:
             print("Searching....")
-            data_dump(q)
-            res = get_data(q)
+            data_dump(q, num_res)
+            res = get_data(q, num_res)
             return render_template('index.html', data=res, form=form, query=q, valid_form=form.validate_on_submit())
     flash('No Search Query Provided', 'error')
     return render_template('index.html', form=form, query=q, valid_form=form.validate_on_submit())

@@ -53,7 +53,7 @@ def check_search_query_exist(squery):
             print("MySQL connection is closed")
     return len(myresult)
 
-def get_data(squery):
+def get_data(squery,num_res=5):
     ''' this function will check if a search text will processed in the past, for project one we will ignore any
     search text that already exsit in DB'''
 
@@ -63,7 +63,7 @@ def get_data(squery):
                                              user=USER, password=PWD)
         if connection.is_connected():
             cursor = connection.cursor()
-            q = "select urls.url, urls.url_id, `content`.freq from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' ORDER BY `content`.freq DESC LIMIT 10;".format(squery)
+            q = "select urls.url, urls.url_id, `content`.freq from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
             cursor.execute(q)
             myresult = cursor.fetchall()
 
