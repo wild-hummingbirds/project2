@@ -1,5 +1,5 @@
-from all_engine_search import all_engines_data
-from driver_script import check_search_query_exist, pre_processing_data, id_generator
+from app.api.all_engine_search import all_engines_data
+from driver_script import check_search_query_exist, id_generator
 from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import Error
