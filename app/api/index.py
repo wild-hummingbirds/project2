@@ -37,7 +37,7 @@ def search():
     all = [1, 2, 3, 4]
     res = "You searched for nothing"
     form = SearchForm()
-    q = form.searchbox.data
+    q = form.searchbox.data.lower()
     if form.validate_on_submit():
         q_exist = check_search_query_exist(q)
         if q_exist:
@@ -62,6 +62,10 @@ def search():
 
 
 
+
+@index_bp.route('/about')
+def about():
+    return render_template('about.html')
 
 
 

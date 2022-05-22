@@ -29,7 +29,7 @@ def data_dump(search_query, max_results=5):
             print("Connected to MySQL Server version ", db_Info)
             cursor = connection.cursor()
 
-            input_data = all_engines_data(search_query, max_results=5)
+            input_data = all_engines_data(search_query, max_results=max_results)
 
             search_id = id_generator()
             cursor.execute(insert_search_query, (search_id, search_query))

@@ -23,7 +23,7 @@
 <body>
     <nav class="nav">
         <a href="{{ url_for('index.root') }}">Search Engine</a>
-        <a href="#">About</a>
+        <a href="{{ url_for('index.about') }}">About</a>
     </nav>
     <hr>
     <div class="content">
@@ -32,5 +32,6 @@
  <div class="search">
         {% block content %} {% endblock %}
     </div>
+{% block about %} {% endblock %}
 </body>
 </html>
