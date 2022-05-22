@@ -29,7 +29,7 @@ def root():
     #         res = get_data(q)
     #         return render_template('index.html', data=res, form=form, query=q)
     # else:
-    return render_template('index.html',form=form)
+    return render_template('index.html',form=form,valid_form=form.validate_on_submit())
 
 
 @index_bp.route('/search', methods=['GET', 'POST'])
@@ -42,13 +42,15 @@ def search():
         q_exist = check_search_query_exist(q)
         if q_exist:
             res = get_data(q)
-            return render_template('index.html', data=res, form=form, query=q)
+            return render_template('index.html', data=res, form=form, query=q, valid_form=form.validate_on_submit())
         else:
             print("Searching....")
             data_dump(q)
             res = get_data(q)
+            return render_template('index.html', data=res, form=form, query=q, valid_form=form.validate_on_submit())
     flash('No Search Query Provided', 'error')
-    return render_template('index.html', data=res, form=form, query=q)
+    return render_template('index.html', form=form, query=q, valid_form=form.validate_on_submit())
+
     # query = request.args.get('query')
     # if check_search_query_exist(query):
     #
