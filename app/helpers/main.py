@@ -65,4 +65,4 @@ def data_dump(search_query, max_results=5):
 if __name__ == '__main__':
     query = input('Enter search query: ')
     max_searches = input('Enter number of searches per engine: ')
-    data_dump(query, max_searches)
+    data_dump(query, int(max_searches))
