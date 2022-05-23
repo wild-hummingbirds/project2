@@ -15,7 +15,7 @@ def google_scrape_page(soup):
         check_snippet = result.find('div', class_='lyLwlc')
         snippet = check_snippet.text if check_snippet else ''
 
-        page_results.append(('Google' ,title, link, snippet))
+        page_results.append(('Google' ,title, link, snippet, 'HTML'))
 
     return page_results
 

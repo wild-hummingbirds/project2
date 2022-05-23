@@ -7,6 +7,9 @@ import os
 from dotenv import load_dotenv
 import string
 import random
+import pdfplumber
+import urllib3
+import io
 
 load_dotenv()
 DB = os.environ['DB']
@@ -87,6 +90,18 @@ def getWebpageText(url):
     else:
         return None
 
+def extract_pdf_by_url(url):
+    http = urllib3.PoolManager()
+    temp = io.BytesIO()
+    temp.write(http.request("GET", url).data)
+    all_text = ''
+
+    with pdfplumber.open(temp) as pdf:
+      for pdf_page in pdf.pages:
+        single_page_text = pdf_page.extract_text()
+        all_text = all_text + '\n' + single_page_text
+    return all_text.strip()
+
     
 def wordFreqCount(full_text, search_term):
     if not full_text:
@@ -101,4 +116,4 @@ def wordFreqCount(full_text, search_term):
 
         for term in terms_not_stop_words:
             freq += ft_lower.count(term.lower())        
-        return freq
+        return freq/len(full_text.split())

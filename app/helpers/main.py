@@ -35,21 +35,28 @@ def data_dump(search_query, max_results=5):
             cursor.execute(insert_search_query, (search_id, search_query))
 
             for row in input_data:
-                engine_name, title, url, snippet = row[:4]
+                engine_name, title, url, snippet, res_type = row[:5]
                 url_id = id_generator()
                 cursor.execute(insert_search_urls, (engine_name, title, url, snippet, url_id, search_id))
 
-                try:
-                    page_content = getWebpageText(url)
-                except:
-                    page_content = None
+                if res_type == 'HTML':
+                    try:
+                        page_content = getWebpageText(url)
+                    except:
+                        page_content = None
+                
+                elif res_type == 'PDF':
+                    try:
+                        page_content = extract_pdf_by_url(url)
+                    except:
+                        page_content = None
 
                 cursor.execute(check_url_exists, (url,))
                 url_exists = len(cursor.fetchall())
 
                 if not url_exists:
                     freq = wordFreqCount(full_text=page_content, search_term=search_query)
-                    cursor.execute(insert_content, (url_id, url, page_content, 'Webpage', freq))
+                    cursor.execute(insert_content, (url_id, url, page_content, res_type, freq))
 
             connection.commit()
 

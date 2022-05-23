@@ -1,4 +1,4 @@
-from app.api.duck_search_api import duckduckgo_search
+from app.api.duck_search_api import duckduckgo_search, duckduckdgo_pdf_search
 from app.api.bing_search_api import bing_search_api
 from app.api.google_search_api import google_nav
 from dotenv import load_dotenv
@@ -14,6 +14,13 @@ def all_engines_data(query, max_results=28):
     print('Total DuckDuckGo results: ', len(duck_data))
     print('\n\n')
 
+    print('Searching PDFs.....')
+    pdf_data = duckduckdgo_pdf_search(query, max_results)
+    print('Total DuckDuckGo results: ', len(pdf_data))
+    print('\n\n')
+
+
+
     print('Searching Bing.....')
     bing_data = bing_search_api(query, max_results)
     print('Total Bing results: ', len(bing_data))
@@ -25,6 +32,7 @@ def all_engines_data(query, max_results=28):
     print('\n')
 
     all_data.extend(duck_data)
+    all_data.extend(pdf_data)
     all_data.extend(bing_data)
     all_data.extend(google_data)
 

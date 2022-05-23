@@ -29,7 +29,7 @@ def bing_search_api(query='data science', max_results=30):
     for res in search_results:
       # if the result set is not already in results_raw >> append
       if [res['name'], res['url'], res['snippet']] not in results_raw:
-        results_raw.append([res['name'], res['url'], res['snippet']])
+        results_raw.append([res['name'], res['url'], res['snippet'], 'HTML'])
     
     # incrementing offset by n_results to get to the next page
     # https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search/page-results
