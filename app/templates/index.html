@@ -44,7 +44,7 @@
             {{ form.searchbox(size=32, class_="input is-link") }}
             {{ form.result(class_="input is-link") }}
            {{ form.type_res.label(class_="label") }}
-           {{ form.type_res(class_="") }}
+           {{ form.type_res(class_="form-select") }}
         </div>
         </p>
 
@@ -77,6 +77,7 @@
     <tr>
       <th scope="col">URL</th>
       <th scope="col">Freq</th>
+      <th scope="col">Type</th>
     </tr>
   </thead>
             <tbody>
@@ -88,6 +89,7 @@
               <a href="{{ res[0] }}" target="_blank" class="link-secondary text-decoration-none">{{ res[0] }}</a>
           </td>
           <td>{{ res[2] }}</td>
+          <td>{{ res[3] }}</td>
     </tr>
                    {% endfor %}
      {% endif %}

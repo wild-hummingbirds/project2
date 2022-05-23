@@ -66,7 +66,7 @@ def get_data(squery,num_res=5):
                                              user=USER, password=PWD)
         if connection.is_connected():
             cursor = connection.cursor()
-            q = "select urls.url, urls.url_id, `content`.freq from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
+            q = "select urls.url, urls.url_id, `content`.freq, `content`.content_type from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
             cursor.execute(q)
             myresult = cursor.fetchall()
 
@@ -89,7 +89,7 @@ def get_data_pdf(squery,num_res=5):
                                              user=USER, password=PWD)
         if connection.is_connected():
             cursor = connection.cursor()
-            q = "select urls.url, urls.url_id, `content`.freq from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' AND `content`.content_type='PDF' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
+            q = "select urls.url, urls.url_id, `content`.freq, `content`.content_type from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' AND `content`.content_type='PDF' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
             cursor.execute(q)
             myresult = cursor.fetchall()
 
@@ -112,7 +112,7 @@ def get_data_web(squery,num_res=5):
                                              user=USER, password=PWD)
         if connection.is_connected():
             cursor = connection.cursor()
-            q = "select urls.url, urls.url_id, `content`.freq from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' AND `content`.content_type='HTML' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
+            q = "select urls.url, urls.url_id, `content`.freq, `content`.content_type from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' AND `content`.content_type='HTML' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
             cursor.execute(q)
             myresult = cursor.fetchall()
 

@@ -82,7 +82,7 @@ def search_all():
                 res = get_data_pdf(q, num_res)
             if content_type == "WEB":
                 res = get_data_web(q, num_res)
-            return render_template('search.html', data=res, form=form, query=q, valid_form=form.validate_on_submit())
+            return render_template('index.html', data=res, form=form, query=q, valid_form=form.validate_on_submit())
         
         else:
             print("Searching....")
@@ -93,9 +93,9 @@ def search_all():
                 res = get_data_pdf(q, num_res)
             if content_type == "WEB":
                 res = get_data_web(q, num_res)
-            return render_template('search.html', data=res, form=form, query=q, valid_form=form.validate_on_submit())
+            return render_template('index.html', data=res, form=form, query=q, valid_form=form.validate_on_submit())
     flash('No Search Query Provided', 'error')
-    return render_template('search.html', form=form, query=q, valid_form=form.validate_on_submit())
+    return render_template('index.html', form=form, query=q, valid_form=form.validate_on_submit())
 
 
 # @index_bp.route('/custom')
