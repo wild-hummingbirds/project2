@@ -101,4 +101,4 @@ def wordFreqCount(full_text, search_term):
 
         for term in terms_not_stop_words:
             freq += ft_lower.count(term.lower())        
-        return freq
+        return round(freq/len(full_text.split(' ')),3)
