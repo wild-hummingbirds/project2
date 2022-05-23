@@ -1,11 +1,11 @@
--- bringing all of the relevant information together
-SELECT 
-q.search_query,
-u.engine_name, 
+-- 1. bringing all of the relevant information together
+SELECT DISTINCT
+ q.search_query,
+-- u.engine_name, 
 u.title, 
-u.snippet, 
+-- u.snippet, 
 u.url,
-c.content_type, 
+-- c.content_type, 
 c.freq
 FROM WildHummingbirds.urls u 
 JOIN WildHummingbirds.content c ON c.url = u.url
@@ -13,7 +13,7 @@ LEFT JOIN WildHummingbirds.search_query q ON u.search_id = q.search_id
 WHERE freq IS NOT NULL
 ORDER BY search_query, freq DESC;
 
--- total frequency by search engine
+-- 2.1 total frequency by search engine
 SELECT 
 q.search_query,
 u.engine_name, 
@@ -29,7 +29,7 @@ LEFT JOIN WildHummingbirds.search_query q ON u.search_id = q.search_id
 WHERE freq IS NOT NULL
 ORDER BY search_query, total_freq DESC;
 
--- search engine ranking
+-- 2.2 search engine ranking
 SELECT 
 search_query,
 engine_name,
