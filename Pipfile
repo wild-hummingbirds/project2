@@ -18,6 +18,7 @@ duckduckgo-search = "*"
 wtforms = "*"
 flask-wtf = "*"
 stop-words = "*"
+pdfplumber = "*"
 
 [dev-packages]
 

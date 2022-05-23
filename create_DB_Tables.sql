@@ -26,7 +26,7 @@ url_id varchar(16) NOT NULL COMMENT 'url_id',
 url varchar(500) NOT NULL COMMENT 'full URL',
 page_content mediumtext DEFAULT NULL COMMENT 'page content',  
 content_type varchar (50) Default 'bf' comment 'by default we will inset bf for beautiful soup', 
-freq int DEFAULT NULL,
+freq decimal(24,3) DEFAULT NULL,
 PRIMARY KEY (url),
 FOREIGN KEY (url_id) REFERENCES urls(url_id)
 );
