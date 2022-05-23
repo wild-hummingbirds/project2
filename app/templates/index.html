@@ -35,15 +35,16 @@
 <section class="section">
     <img class="" src="../static/bird.png" alt="Bird" height="200">
     <h1 class="title">HummingBird</h1>
-    <form action="/search" method="post" novalidate >
+    <form action="/all" method="post" novalidate >
         {{ form.hidden_tag() }}
         <p>
         <div class="field">
             {{ form.searchbox.label(class_="label") }}
+              {{ form.searchbox.label(class_="label") }}
             {{ form.searchbox(size=32, class_="input is-link") }}
             {{ form.result(class_="input is-link") }}
-{#            {{ form.redo.label(class_="label") }}#}
-{#            {{ form.redo(class_="input is-link") }}#}
+           {{ form.type_res.label(class_="label") }}
+           {{ form.type_res(class_="") }}
         </div>
         </p>
 
@@ -100,19 +101,6 @@
      </div>
     </div>
      {% endif %}
-    <script>
-
-    $(document).ready(function(){
-        {#$("#hide").click(function(){#}
-        {#    $("bt-hide").hide();});#}
-        {#$("#show").click(function(){#}
-        {#    $("p").show();});#}
-        console.log("hello")
-    });
-
-
-    </script>
-
 {% endblock %}
 
 
