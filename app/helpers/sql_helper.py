@@ -77,6 +77,52 @@ def get_data(squery,num_res=5):
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
+    return myresult 
+
+def get_data_pdf(squery,num_res=5):
+    ''' this function will check if a search text will processed in the past, for project one we will ignore any
+    search text that already exsit in DB'''
+
+    myresult = ''  # in the event query fail we will return 0
+    try:
+        connection = mysql.connector.connect(host='127.0.0.1', database=DB,
+                                             user=USER, password=PWD)
+        if connection.is_connected():
+            cursor = connection.cursor()
+            q = "select urls.url, urls.url_id, `content`.freq from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' AND `content`.content_type='PDF' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
+            cursor.execute(q)
+            myresult = cursor.fetchall()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed")
+    return myresult
+
+def get_data_web(squery,num_res=5):
+    ''' this function will check if a search text will processed in the past, for project one we will ignore any
+    search text that already exsit in DB'''
+
+    myresult = ''  # in the event query fail we will return 0
+    try:
+        connection = mysql.connector.connect(host='127.0.0.1', database=DB,
+                                             user=USER, password=PWD)
+        if connection.is_connected():
+            cursor = connection.cursor()
+            q = "select urls.url, urls.url_id, `content`.freq from search_query INNER JOIN urls ON search_query.search_id=urls.search_id INNER JOIN `content` ON urls.url_id=`content`.url_id WHERE search_query='{}' AND `content`.content_type='HTML' ORDER BY `content`.freq DESC LIMIT {};".format(squery, num_res)
+            cursor.execute(q)
+            myresult = cursor.fetchall()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed")
     return myresult
 
 def getWebpageText(url):
