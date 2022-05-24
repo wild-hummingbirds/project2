@@ -127,7 +127,8 @@ def get_data_web(squery,num_res=5):
 
 def getWebpageText(url):
     ''' Takes in URL, returns all the text from website if accessible'''
-    webpage = requests.get(url)
+    headers={"User-Agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36'}
+    webpage = requests.get(url, headers=headers)
 
     if webpage.status_code == 200:
         soup = BeautifulSoup(webpage.text, 'html.parser')
@@ -143,9 +144,12 @@ def extract_pdf_by_url(url):
     all_text = ''
 
     with pdfplumber.open(temp) as pdf:
-      for pdf_page in pdf.pages:
-        single_page_text = pdf_page.extract_text()
-        all_text = all_text + '\n' + single_page_text
+        print(f'TOTAL PAGES IN PDF: {len(pdf.pages)}')
+        for num,pdf_page in enumerate(pdf.pages):
+            if num == 10:
+                break
+            single_page_text = pdf_page.extract_text()
+            all_text = all_text + '\n' + single_page_text
     return all_text.strip()
 
     

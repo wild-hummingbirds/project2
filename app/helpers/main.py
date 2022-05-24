@@ -42,12 +42,19 @@ def data_dump(search_query, max_results=5):
                 if res_type == 'HTML':
                     try:
                         page_content = getWebpageText(url)
+                        print('Webpage text extracted!')
                     except:
                         page_content = None
                 
                 elif res_type == 'PDF':
                     try:
-                        page_content = extract_pdf_by_url(url)
+                        print('Starting PDF extraction')
+                        print(url)
+                        if url.endswith('.pdf'):
+                            page_content = extract_pdf_by_url(url)
+                        else:
+                            page_content = None
+                        print('PDF text extracted!')
                     except:
                         page_content = None
 
@@ -56,6 +63,7 @@ def data_dump(search_query, max_results=5):
 
                 if not url_exists:
                     freq = wordFreqCount(full_text=page_content, search_term=search_query)
+                    print('Frequency counter complete!')
                     cursor.execute(insert_content, (url_id, url, page_content, res_type, freq))
 
             connection.commit()
