@@ -31,7 +31,7 @@
 
 
 </style>
-
+     <img class="hummingbird loader-wrapper" src="../static/birdo2.gif" alt="Bird" height="200">
 <section class="section">
     <img class="" src="../static/bird.png" alt="Bird" height="200">
     <h1 class="title">HummingBird</h1>
@@ -48,7 +48,7 @@
         </div>
         </p>
 
-        <p>{{ form.submit(class_="button is-link bt-loader") }}</p>
+        <p class="form-button">{{ form.submit(class_="button is-link bt-loader") }}</p>
     </div>
 
 </div>
@@ -68,6 +68,30 @@
 
   {% endif %}
 {% endwith %}
+
+{#<div class="d-flex justify-content-center">#}
+{#<div class="spinner-grow text-primary" role="status">#}
+{#</div>#}
+{#<div class="spinner-grow text-secondary" role="status">#}
+{##}
+{#</div>#}
+{#<div class="spinner-grow text-success" role="status">#}
+{##}
+{#</div>#}
+{#<div class="spinner-grow text-danger" role="status">#}
+{##}
+{#</div>#}
+{#<div class="spinner-grow text-warning" role="status">#}
+{##}
+{#</div>#}
+{#<div class="spinner-grow text-info" role="status">#}
+{##}
+{#</div>#}
+{#<div class="spinner-grow text-dark" role="status">#}
+{##}
+{#</div>#}
+{##}
+{#</div>#}
 
     {% if valid_form %}
     <div class="container results">
