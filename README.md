@@ -6,12 +6,19 @@
     - pipenv install <package> (Install packages needed)
 
 ## Set environment variables:
-    - Run the following commands while in your virtual environment
+    - Create a .env file with the following variables:
 ```
-export DB=dbname
-export PWD=password
-export USER=username
+DB=dbname
+PWD=password
+USER=username
 ```
+
+# Bing API 
+  1. Create a free Azure subscription
+  2. Login to https://portal.azure.com/#home 
+  3. Create a resource >> "Bing Search v7"
+  4. Go to Keys and Endpoint tab and copy the key to use a subscription_key
+  5. Save the key in the .env file created earlier under BING_SEARCH_V7_SUBSCRIPTION_KEY=YOUR_KEY_FROM_#4
 
 # To Test main.py:
     - python3 -m app.helpers.main FROM THE ROOT DIRECTORY
