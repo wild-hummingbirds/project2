@@ -8,9 +8,9 @@
 ## Set environment variables:
     - Run the following commands while in your virtual environment
 ```
-    export DB=dbname
-    export PWD=password
-    export USER=username
+export DB=dbname
+export PWD=password
+export USER=username
 ```
 
 # To Test main.py:
