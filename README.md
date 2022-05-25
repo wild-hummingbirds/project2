@@ -6,7 +6,7 @@
     - pipenv install <package> (Install packages needed)
 
 ## Set environment variables:
-    - Create a .env file with the following variables:
+    - Create a .env file in the root directory with the following variables:
     DB=dbname
     PWD=password
     USER=username
