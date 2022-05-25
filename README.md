@@ -1,4 +1,9 @@
-# Project 2
+# Data Engineering DSE I2400: Project 2
+
+## Search Engine Analysis
+
+## Goal:
+Web based contents search engine to perform aggregated web search across Google, Bing, and DuckDuckGo search engines that displays result set ordered by frequency match for relevant search terms. The engine is capable of performing search across web results and PDF documents.
 
 ## To Use Pipenv Virtual Environment:
     - pipenv shell (Activates virtual environment)
