@@ -7,11 +7,9 @@
 
 ## Set environment variables:
     - Create a .env file with the following variables:
-```
-DB=dbname
-PWD=password
-USER=username
-```
+    DB=dbname
+    PWD=password
+    USER=username
 
 # Bing API 
   1. Create a free Azure subscription
