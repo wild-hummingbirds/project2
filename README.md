@@ -23,9 +23,6 @@ Web based contents search engine to perform aggregated web search across Google,
   4. Go to Keys and Endpoint tab and copy the key to use a subscription_key
   5. Save the key in the .env file created earlier under BING_SEARCH_V7_SUBSCRIPTION_KEY=YOUR_KEY_FROM_#4
 
-# To Test main.py:
-    - python3 -m app.helpers.main FROM THE ROOT DIRECTORY
-
 # To Run Flask App:
     - cd app
     - flask run --reload
